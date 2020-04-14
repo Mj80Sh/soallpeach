@@ -6,6 +6,11 @@ int m;
 int num;
 int primes[99992];
 
+typedef enum {
+    false,
+    true
+} bool;
+
 int sum_digit(long int n)
 {
     int sum=0,m;
