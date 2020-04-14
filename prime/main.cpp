@@ -6,28 +6,34 @@ int m;
 int num;
 int primes[99992];
 
+int sum_digit(long int n)
+{
+    int sum=0,m;
+    while(n>0)
+    {
+        m=n%10;
+        sum=sum+m;
+        n=n/10;
+    }
+
+    return sum;
+}
+
+
 int is_prime(int n)
 {
-    if (n <= 3)
-        return 1;
-    if (n % 2 == 0 || n % 3 == 0)
+    if ((n%10)%2==0 || sum_digit(n)%3==0)
         return 0;
-
-    for (m = 5; m < (int)sqrt(n)+1; m = m + 6)
-    {
-        if (n % m == 0 || n % (m + 2) == 0)
-            return 0;
-    }
     return 1;
 }
 
 void SieveOfAtkin(int lmt)
 {
-        primes[2]=1;
-        primes[3]=1;
-        primes[4]=0;
-        primes[5]=1;
-        primes[1]=0;
+    primes[2]=1;
+    primes[3]=1;
+    primes[4]=0;
+    primes[5]=1;
+    primes[1]=0;
     bool sieve[lmt];
     for (int i = 0; i < lmt; i++)
         sieve[i] = false;
@@ -64,15 +70,14 @@ int main(int argc, char *argv[])
     FILE *file = fopen(argv[1], "r");
     char buf[1000];
     SieveOfAtkin(99992);
-
     while (fgets(buf, 1000, file) != NULL)
     {
 
         num = atoi(buf);
         if(num<=99992)
-        printf("%d\n", primes[num]);
+            printf("%d\n", primes[num]);
         else
-        printf("%d\n", 0);
+            printf("%d\n", is_prime(num));
 
     }
     fclose(file);
