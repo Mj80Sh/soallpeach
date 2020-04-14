@@ -1,4 +1,4 @@
-FROM gcc:4.9
+FROM gcc
 WORKDIR /app
 
 COPY main.c main.c
