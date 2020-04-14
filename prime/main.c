@@ -27,7 +27,7 @@ int sum_digit(long int n)
 
 int is_prime(int n)
 {
-    if ((n%10)%2==0 || sum_digit(n)%3==0)
+    if ((n%10)%2==0 || sum_digit(n)%3==0 ||(n%10)%5==0)
         return 0;
     return 1;
 }
