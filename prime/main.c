@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <math.h>
 
-#define MAX_VAL 2095000
+#define MAX_VAL 99992
 int m;
 int num;
 int primes[MAX_VAL];
