@@ -2,33 +2,31 @@
 #include <stdlib.h>
 #include <math.h>
 
+#define MAX_VAL 2095000
 int m;
 int num;
-int primes[99992];
+int primes[MAX_VAL];
 
-typedef enum {
+typedef enum
+{
     false,
     true
 } bool;
 
-int sum_digit(long int n)
-{
-    int sum=0,m;
-    while(n>0)
-    {
-        m=n%10;
-        sum=sum+m;
-        n=n/10;
-    }
-
-    return sum;
-}
 
 
 int is_prime(int n)
 {
-    if ((n%10)%2==0 || sum_digit(n)%3==0 ||(n%10)%5==0)
+    if (n <= 3)
+        return 1;
+    if (n % 2 == 0 || n % 3 == 0)
         return 0;
+
+    for (m = 5; m < (int)sqrt(n) + 1; m = m + 6)
+    {
+        if (n % m == 0 || n % (m + 2) == 0)
+            return 0;
+    }
     return 1;
 }
 
@@ -74,12 +72,12 @@ int main(int argc, char *argv[])
 {
     FILE *file = fopen(argv[1], "r");
     char buf[1000];
-    SieveOfAtkin(99992);
+    SieveOfAtkin(MAX_VAL);
     while (fgets(buf, 1000, file) != NULL)
     {
 
         num = atoi(buf);
-        if(num<=99992)
+        if(num<=MAX_VAL)
             printf("%d\n", primes[num]);
         else
             printf("%d\n", is_prime(num));
