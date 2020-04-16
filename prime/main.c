@@ -2,20 +2,16 @@
 #include <stdlib.h>
 #include <math.h>
 
-#define MAX_VAL 99999
+#define MAX_VAL 99992
+int m;
+int num;
+int primes[MAX_VAL];
 
 typedef enum
 {
     false,
     true
 } bool;
-
-
-int m;
-int num;
-bool sieve[MAX_VAL];
-
-
 
 
 
@@ -36,28 +32,28 @@ int is_prime(int n)
 
 void SieveOfAtkin(int lmt)
 {
-
-
-
+    primes[2]=1;
+    primes[3]=1;
+    primes[4]=0;
+    primes[5]=1;
+    primes[1]=0;
+    bool sieve[lmt];
     for (int i = 0; i < lmt; i++)
         sieve[i] = false;
-
     for (int a = 1; a * a < lmt; a++)
     {
         for (int b = 1; b * b < lmt; b++)
         {
             // Main part of Sieve of Atkin
             int n = (4 * a* a) + (b * b);
-
             if (n <= lmt && (n % 12 == 1 || n % 12 == 5))
                 sieve[n] ^= true;
             n = (3 * a * a) + (b * b);
-            if (n <= lmt && n % 12 == 7 )
+            if (n <= lmt && n % 12 == 7)
                 sieve[n] ^= true;
             n = (3 * a * a) - (b * b);
             if (a > b && n <= lmt && n % 12 == 11)
                 sieve[n] ^= true;
-
         }
     }
     for (int r = 5; r * r < lmt; r++)
@@ -66,14 +62,10 @@ void SieveOfAtkin(int lmt)
         {
             for (int i = r * r; i < lmt; i += r * r)
                 sieve[i] = false;
-
         }
     }
-
-    sieve[2]=sieve[5]=sieve[3]=1;
-
-    sieve[4]=sieve[1]=0;
-
+    for (int x = 5; x < lmt; x++)
+        primes[x]=sieve[x];
 }
 
 int main(int argc, char *argv[])
@@ -86,13 +78,11 @@ int main(int argc, char *argv[])
 
         num = atoi(buf);
         if(num<=MAX_VAL)
-            printf("%d\n", sieve[num]);
+            printf("%d\n", primes[num]);
         else
             printf("%d\n", is_prime(num));
 
-
     }
-
+    fclose(file);
     return 0;
 }
-
