@@ -88,7 +88,7 @@ int main(int argc, char *argv[])
         if(num<=MAX_VAL)
             printf("%d\n", sieve[num]);
         else
-            printf("%d\n", 1);
+            printf("%d\n", is_prime(num));
 
 
     }
