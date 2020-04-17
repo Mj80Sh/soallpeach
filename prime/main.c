@@ -32,11 +32,7 @@ unsigned long int is_prime(unsigned long int n)
 
 void SieveOfAtkin(bool *sieve ,unsigned long int lmt)
 {
-    primes[2]=1;
-    primes[3]=1;
-    primes[4]=0;
-    primes[5]=1;
-    primes[1]=0;
+
 
     for (unsigned long int i = 0; i < lmt; i++)
         sieve[i] = false;
@@ -65,15 +61,19 @@ void SieveOfAtkin(bool *sieve ,unsigned long int lmt)
         }
     }
 
+    sieve[3]=sieve[5]=sieve[2]=1;
+    sieve[4]=sieve[1]=0;
+
 }
 
 unsigned long int main(unsigned long int argc, char *argv[])
 {
-    FILE *file = fopen(argv[1], "r");
-    char buf[1000];
+    FILE *file =
+    fopen(argv[1], "r");
+    char buf[99999];
     bool sieve[MAX_VAL];
     SieveOfAtkin(sieve,MAX_VAL);
-    while (fgets(buf, 1000, file) != NULL)
+    while (fgets(buf, 99999, file) != NULL)
     {
 
         num = atoi(buf);
