@@ -66,7 +66,7 @@ void SieveOfAtkin(bool *sieve ,unsigned long int lmt)
 
 }
 
-unsigned long int main(unsigned long int argc, char *argv[])
+int main(int argc, char *argv[])
 {
     FILE *file =
     fopen(argv[1], "r");
