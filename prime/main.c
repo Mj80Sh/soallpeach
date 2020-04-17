@@ -70,17 +70,22 @@ unsigned long int main(unsigned long int argc, char *argv[])
 {
     FILE *file =
     fopen(argv[1], "r");
-    char buf[99999];
+    char buf[MAX_VAL];
     bool sieve[MAX_VAL];
     SieveOfAtkin(sieve,MAX_VAL);
-    while (fgets(buf, 99999, file) != NULL)
+    while (fgets(buf, MAX_VAL, file) != NULL)
     {
 
         num = atoi(buf);
-        if(num<=MAX_VAL)
-            printf("%d\n", sieve[num]);
-        else
-            printf("%d\n", is_prime(num));
+        if(num<=MAX_VAL){
+            sieve[num]?putchar_unlocked('1') :putchar_unlocked('0');
+            putchar_unlocked('\n');
+            }
+
+        else{
+            is_prime(num)?putchar_unlocked('1'):putchar_unlocked('0');
+            putchar_unlocked('\n');
+            }
 
     }
     fclose(file);
