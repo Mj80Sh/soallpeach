@@ -84,8 +84,7 @@ int main(int argc, char *argv[])
     char buf[1000];
     bool sieve[MAX_VAL];
     SieveOfAtkin(sieve,MAX_VAL);
-    fgets(buf, 1000, file);
-
+    fgets_unlocked(buf, 1000, file);
 print:
 
     num = fast_atoi(buf);
@@ -100,7 +99,7 @@ print:
         is_prime(num)?putchar_unlocked('1'):putchar_unlocked('0');
         putchar_unlocked('\n');
     }
-    if(fgets(buf, 1000, file))
+    if(fgets_unlocked(buf, 1000, file))
         goto print;
 
     fclose(file);
