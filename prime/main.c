@@ -1,5 +1,5 @@
 #include <stdio.h>
-#include <stdlib.h>
+
 #include <math.h>
 
 #define MAX_VAL 99999
@@ -85,6 +85,7 @@ int main(int argc, char *argv[])
     bool sieve[MAX_VAL];
     SieveOfAtkin(sieve,MAX_VAL);
     fgets(buf, 1000, file);
+
 print:
 
     num = fast_atoi(buf);
