@@ -30,7 +30,7 @@ unsigned long int is_prime(unsigned long int n)
     return 1;
 }
 
-void SieveOfAtkin(bool *sieve ,unsigned long int lmt)
+void SieveOfAtkin(bool *sieve,unsigned long int lmt)
 {
 
 
@@ -66,28 +66,42 @@ void SieveOfAtkin(bool *sieve ,unsigned long int lmt)
 
 }
 
+int fast_atoi(const char *buff)
+{
+    int c = 0, sign = 0, x = 0;
+    const char *p = buff;
+
+    for(c = *(p++); (c < 48 || c > 57); c = *(p++)) {if (c == 45) {sign = 1; c = *(p++); break;}}; // eat whitespaces and check sign
+    for(; c > 47 && c < 58; c = *(p++)) x = (x << 1) + (x << 3) + c - 48;
+
+    return x;
+}
+
 int main(int argc, char *argv[])
 {
     FILE *file =
-    fopen(argv[1], "r");
-    char buf[MAX_VAL];
+        fopen(argv[1], "r");
+    char buf[1000];
     bool sieve[MAX_VAL];
     SieveOfAtkin(sieve,MAX_VAL);
-    while (fgets(buf, MAX_VAL, file) != NULL)
+    fgets(buf, 1000, file);
+print:
+
+    num = fast_atoi(buf);
+    if(num<=MAX_VAL)
     {
-
-        num = atoi(buf);
-        if(num<=MAX_VAL){
-            sieve[num]?putchar_unlocked('1') :putchar_unlocked('0');
-            putchar_unlocked('\n');
-            }
-
-        else{
-            is_prime(num)?putchar_unlocked('1'):putchar_unlocked('0');
-            putchar_unlocked('\n');
-            }
-
+        sieve[num]?putchar_unlocked('1') :putchar_unlocked('0');
+        putchar_unlocked('\n');
     }
+
+    else
+    {
+        is_prime(num)?putchar_unlocked('1'):putchar_unlocked('0');
+        putchar_unlocked('\n');
+    }
+    if(fgets(buf, 1000, file))
+        goto print;
+
     fclose(file);
     return 0;
 }
