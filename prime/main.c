@@ -103,7 +103,7 @@ int main(int argc, char *argv[])
     SieveOfAtkin(sieve,MAX_VAL);
 
 
-    while( fast_fgets(buf, 10, file)!=NULL)
+    while( fast_fgets(buf, 8, file)!=NULL)
        {
 
     num = fast_atoi(buf);
