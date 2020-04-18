@@ -3,6 +3,8 @@
 
 
 #define MAX_VAL 99999
+
+
 unsigned long int m;
 unsigned long int num;
 unsigned long int primes[MAX_VAL];
@@ -68,7 +70,7 @@ void SieveOfAtkin(bool *sieve,unsigned long int lmt)
 
 int fast_atoi(const char *buff)
 {
-    int c = 0, sign = 0, x = 0;
+    int c = 0, x = 0;
     const char *p = buff;
 
     //for(c = *(p++); (c < 48 || c > 57); c = *(p++)) {if (c == 45) {sign = 1; c = *(p++); break;}}; // eat whitespaces and check sign
@@ -83,7 +85,6 @@ char * fast_fgets (char *buf, int n, FILE *fp)
     char *result;
 
     count = _IO_getline (fp, buf, n - 1, '\n', 1);
-
 
     if(count)
     {
@@ -102,11 +103,8 @@ int main(int argc, char *argv[])
     SieveOfAtkin(sieve,MAX_VAL);
 
 
-
-print:
-
-    if( fast_fgets(buf, 1000, file)==NULL)
-        goto end;
+    while( fast_fgets(buf, 10, file)!=NULL)
+       {
 
     num = fast_atoi(buf);
 
@@ -121,10 +119,10 @@ print:
         is_prime(num)?putchar_unlocked('1'):putchar_unlocked('0');
         putchar_unlocked('\n');
     }
-    goto print;
+
+    }
 
 
-end:
     fclose(file);
     return 0;
 }
