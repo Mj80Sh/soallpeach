@@ -1,6 +1,6 @@
 #include <stdio.h>
-
 #include <math.h>
+
 
 #define MAX_VAL 99999
 unsigned long int m;
@@ -71,23 +71,45 @@ int fast_atoi(const char *buff)
     int c = 0, sign = 0, x = 0;
     const char *p = buff;
 
-    for(c = *(p++); (c < 48 || c > 57); c = *(p++)) {if (c == 45) {sign = 1; c = *(p++); break;}}; // eat whitespaces and check sign
-    for(; c > 47 && c < 58; c = *(p++)) x = (x << 1) + (x << 3) + c - 48;
+    //for(c = *(p++); (c < 48 || c > 57); c = *(p++)) {if (c == 45) {sign = 1; c = *(p++); break;}}; // eat whitespaces and check sign
+    for(c = *(p++); c > 47 && c < 58; c = *(p++)) x = (x << 1) + (x << 3) + c - 48;
 
     return x;
 }
 
+char * fast_fgets (char *buf, int n, FILE *fp)
+{
+    size_t count;
+    char *result;
+
+    count = _IO_getline (fp, buf, n - 1, '\n', 1);
+
+
+    if(count)
+    {
+        buf[count] = '\0';
+        return buf;
+    }
+
+    return NULL;
+}
+
 int main(int argc, char *argv[])
 {
-    FILE *file =
-        fopen(argv[1], "r");
+    FILE *file = fopen(argv[1], "r");
     char buf[1000];
     bool sieve[MAX_VAL];
     SieveOfAtkin(sieve,MAX_VAL);
-    fgets_unlocked(buf, 1000, file);
+
+
+
 print:
 
+    if( fast_fgets(buf, 1000, file)==NULL)
+        goto end;
+
     num = fast_atoi(buf);
+
     if(num<=MAX_VAL)
     {
         sieve[num]?putchar_unlocked('1') :putchar_unlocked('0');
@@ -99,9 +121,10 @@ print:
         is_prime(num)?putchar_unlocked('1'):putchar_unlocked('0');
         putchar_unlocked('\n');
     }
-    if(fgets_unlocked(buf, 1000, file))
-        goto print;
+    goto print;
 
+
+end:
     fclose(file);
     return 0;
 }
