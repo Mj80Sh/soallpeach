@@ -79,34 +79,29 @@ int fast_atoi(const char *buff)
     return x;
 }
 
-char * fast_fgets (char *buf, int n, FILE *fp)
-{
-    size_t count;
-    char *result;
-
-    count = _IO_getline (fp, buf, n - 1, '\n', 1);
-
-    if(count)
-    {
-        buf[count] = '\0';
-        return buf;
-    }
-
-    return NULL;
-}
 
 int main(int argc, char *argv[])
 {
     FILE *file = fopen(argv[1], "r");
     char buf[1000];
     bool sieve[MAX_VAL];
+    size_t count;
     SieveOfAtkin(sieve,MAX_VAL);
 
+     char *line_buf = NULL;
+     size_t line_buf_size = 0;
+     int line_count = 0;
+     ssize_t line_size;
 
-    while( fast_fgets(buf, 1000, file)!=NULL)
+
+//    count = _IO_getline (file, buf, 1000, '\n', 1);
+//    puts(buf);
+
+    line_size = getline(&line_buf, &line_buf_size, file);
+    while( line_size >= 0)
        {
-
-    num = fast_atoi(buf);
+    line_count++;
+    num = fast_atoi(line_buf);
 
     if(num<=MAX_VAL)
     {
@@ -119,7 +114,7 @@ int main(int argc, char *argv[])
         is_prime(num)?putchar_unlocked('1'):putchar_unlocked('0');
         putchar_unlocked('\n');
     }
-
+    line_size = getline(&line_buf, &line_buf_size, file);
     }
 
 
